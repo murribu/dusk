@@ -64,6 +64,35 @@ trait MakesAssertions
     }
 
     /**
+     * Assert that the given querystring parameter is present.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function assertHasQueryStringParam($name)
+    {
+        parse_str(parse_url($this->driver->getCurrentURL())['query'], $params);
+        return PHPUnit::assertTrue(array_key_exists($name, $params));
+    }
+
+    /**
+     * Assert that a querystring parameter has a given value.
+     *
+     * @param  string  $name
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertQueryStringValue($name, $value)
+    {
+        if (!$this->assertHasQueryStringParam($name))
+            return false;
+        
+        parse_str(parse_url($this->driver->getCurrentURL())['query'], $params);
+        return PHPUnit::assertEquals($params[$name], $value);
+        
+    }
+    
+    /**
      * Assert that the given cookie is present.
      *
      * @param  string  $name
