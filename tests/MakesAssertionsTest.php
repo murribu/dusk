@@ -31,7 +31,7 @@ class MakesAssertionsTest extends PHPUnit_Framework_TestCase
             $browser->assertQueryStringValue('param2', 'value2')
         );
         $this->assertFalse(
-            $browser->assertHasQueryStringParam('foo', 'bar')
+            $browser->assertQueryStringValue('foo', 'bar')
         );
     }
 }
